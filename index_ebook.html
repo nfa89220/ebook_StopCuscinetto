@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop al Cuscinetto - L'Ebook</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F7F4EF;
+            --text-color: #1a1a1a;
+            --font-family: 'Poppins', sans-serif;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        section {
+            margin-bottom: 6rem;
+            position: relative;
+        }
+
+        h1, h2 {
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 10vw, 4rem);
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: clamp(2rem, 8vw, 3rem);
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 4vw, 1.5rem);
+            margin-bottom: 2.5rem;
+            color: #4a4a4a;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            border: 2px solid var(--text-color);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.2);
+        }
+
+        .content-list {
+            list-style: none;
+            padding-left: 0;
+            text-align: left;
+            max-width: 450px;
+            margin: 2rem auto 0;
+        }
+
+        .content-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .content-list .number {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #888;
+            min-width: 50px;
+        }
+        
+        .content-list .text {
+            color: var(--text-color);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* Decorative Shapes */
+        .shape {
+            position: absolute;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .shape svg {
+            stroke: #ceccc8;
+            stroke-width: 2px;
+            fill: none;
+        }
+        
+        .shape-cloud {
+            top: -5%;
+            left: -20%;
+            width: 200px;
+        }
+
+        .shape-sunburst {
+            top: 10%;
+            right: -25%;
+            width: 220px;
+        }
+
+        #final-cta .shape-wavy {
+            bottom: -50%;
+            left: -15%;
+            width: 250px;
+            transform: rotate(-10deg);
+        }
+        
+        #contents .shape-stairs {
+            bottom: 5%;
+            right: -25%;
+            width: 200px;
+        }
+        
+        #contents .shape-spiky {
+            top: 50%;
+            left: -25%;
+            width: 180px;
+            transform: translateY(-50%) rotate(15deg);
+        }
+
+        /* Animation Keyframes */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes subtle-rotate {
+            0% { transform: rotate(-3deg); }
+            100% { transform: rotate(3deg); }
+        }
+
+        /* Shape Animations */
+        .shape-cloud {
+            animation: float 7s ease-in-out infinite;
+        }
+        .shape-sunburst {
+            animation: subtle-rotate 12s ease-in-out infinite alternate;
+        }
+        .shape-spiky {
+            animation: float 9s ease-in-out infinite 1s; /* delayed start */
+        }
+
+
+        /* Scroll Animations */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered List Animation */
+        .content-list li {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        }
+        .content-list.is-visible li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .content-list.is-visible li:nth-child(1) { transition-delay: 0.1s; }
+        .content-list.is-visible li:nth-child(2) { transition-delay: 0.2s; }
+        .content-list.is-visible li:nth-child(3) { transition-delay: 0.3s; }
+        .content-list.is-visible li:nth-child(4) { transition-delay: 0.4s; }
+        .content-list.is-visible li:nth-child(5) { transition-delay: 0.5s; }
+        .content-list.is-visible li:nth-child(6) { transition-delay: 0.6s; }
+
+
+        @media (max-width: 768px) {
+            .shape {
+                opacity: 0.3;
+                z-index: -1;
+            }
+            .shape-cloud { top: 0; left: -10%; width: 150px; }
+            .shape-sunburst { top: 5%; right: -15%; width: 150px; }
+            .shape-wavy { display: none; }
+            .shape-stairs { display: none; }
+            .shape-spiky { display: none; }
+        }
+
+    </style>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+
+    <header class="container fade-in-section">
+        <div class="shape shape-cloud">
+            <svg viewBox="0 0 103 62" xmlns="http://www.w3.org/2000/svg">
+                <path d="M101.333 34.6327C101.333 48.0127 92.4281 59.4077 81.3333 60.9999C70.2386 62.5922 58.6667 54.5828 58.6667 42.482C58.6667 30.3813 54.0195 21.0561 44.3333 17.5576C34.6471 14.059 23.3333 19.3453 15.6667 15.8468C8 12.3483 -1.89209 4.33887 1.66667 1.3039C5.22543 -1.73105 18.3333 5.56279 26 7.31201C33.6667 9.06122 41.3333 2.55468 51.6667 4.3039C62 6.05312 66.3333 16.4827 75.3333 20.3335C84.3333 24.1843 90.2386 21.2528 101.333 34.6327Z"/>
+            </svg>
+        </div>
+        <div class="shape shape-sunburst">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <line x1="50" y1="50" x2="50" y2="0" /><line x1="50" y1="50" x2="100" y2="50" /><line x1="50" y1="50" x2="50" y2="100" /><line x1="50" y1="50" x2="0" y2="50" /><line x1="50" y1="50" x2="85.35" y2="14.65" /><line x1="50" y1="50" x2="14.65" y2="14.65" /><line x1="50" y1="50" x2="14.65" y2="85.35" /><line x1="50" y1="50" x2="85.35" y2="85.35" /><line x1="50" y1="50" x2="71.21" y2="28.79" /><line x1="50" y1="50" x2="28.79" y2="28.79" /><line x1="50" y1="50" x2="28.79" y2="71.21" /><line x1="50" y1="50" x2="71.21" y2="71.21" />
+            </svg>
+        </div>
+
+        <h1>Stop al Cuscinetto</h1>
+        <p class="subtitle">Taglia i fianchi, non la tua vita.</p>
+        <a href="https://gumroad.com/l/placeholder" class="cta-button">Scarica l'Ebook Ora</a>
+    </header>
+
+    <main>
+        <section id="intro" class="container fade-in-section">
+            <h2>Non è magia, è disciplina.</h2>
+            <p>
+                Siamo onesti: quei maledetti rotolini sui fianchi sono tosti. Le soluzioni magiche non esistono. Le creme? Fuffa. Gli esercizi miracolosi? Illusioni. Il segreto è uno solo: <strong>costanza</strong>.
+            </p>
+            <p>
+                Questo non è il solito ebook che promette miracoli in due settimane. È una guida onesta per chi è stanco di illusioni e vuole risultati veri. Servirà impegno, ma se segui la strada giusta, i fianchi che sogni arriveranno.
+            </p>
+        </section>
+
+        <section id="contents" class="container fade-in-section">
+             <div class="shape shape-stairs">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M99 99 L99 87 L87 87 L87 75 L75 75 L75 63 L63 63 L63 51 L51 51 L51 39 L39 39 L39 27 L27 27 L27 15 L15 15 L15 3 L3 3"/>
+                </svg>
+            </div>
+            <div class="shape shape-spiky">
+              <svg viewBox="0 0 108 108" xmlns="http://www.w3.org/2000/svg"><path d="M106.5 51.5C106.5 79.5 90.5 106.5 54 106.5C17.5 106.5 1.5 79.5 1.5 51.5C1.5 23.5 31 -5.5 54 2.5C77 10.5 106.5 23.5 106.5 51.5Z"/></svg>
+            </div>
+            <h2>Cosa scoprirai all'interno:</h2>
+            <ul class="content-list">
+                <li>
+                    <span class="number">01</span>
+                    <span class="text">Come usare questo manuale per risultati veri e misurabili.</span>
+                </li>
+                <li>
+                    <span class="number">02</span>
+                    <span class="text">La scienza dietro i fianchi "resistenti" e perché non è colpa tua.</span>
+                </li>
+                <li>
+                    <span class="number">03</span>
+                    <span class="text">Le strategie per mangiare bene senza soffrire (e senza contare ogni caloria).</span>
+                </li>
+                 <li>
+                    <span class="number">04</span>
+                    <span class="text">Allenarsi con intelligenza: i 3 esercizi FONDAMENTALI da fare a casa.</span>
+                </li>
+                <li>
+                    <span class="number">05</span>
+                    <span class="text">Sviluppare la mentalità vincente per non mollare mai.</span>
+                </li>
+                <li>
+                    <span class="number">06</span>
+                    <span class="text">I 3 errori più comuni che ti stanno bloccando e come evitarli.</span>
+                </li>
+            </ul>
+        </section>
+
+        <section id="final-cta" class="container fade-in-section">
+            <div class="shape shape-wavy">
+                <svg viewBox="0 0 134 51" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.5 49.5C1.5 49.5 28.5 1.5 51.5 1.5C74.5 1.5 73.5 49.5 96.5 49.5C119.5 49.5 132.5 1.5 132.5 1.5"/>
+                </svg>
+            </div>
+            <h2>Pronto/a a iniziare?</h2>
+            <p>
+                Basta rimandare. Prendi il controllo e inizia oggi il percorso verso i fianchi che hai sempre desiderato. L'unica cosa che hai da perdere sono i centimetri di troppo.
+            </p>
+            <a href="https://gumroad.com/l/placeholder" class="cta-button">Voglio i miei risultati</a>
+        </section>
+    </main>
+
+    <footer>
+        <p class="fade-in-section">&copy; 2025 Stop al Cuscinetto. Tutti i diritti riservati.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            // Observe all elements with the fade-in class and the content list
+            document.querySelectorAll('.fade-in-section, .content-list').forEach((el) => {
+                observer.observe(el);
+            });
+        });
+    </script>
+
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
